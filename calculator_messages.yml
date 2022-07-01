@@ -1,0 +1,22 @@
+
+en:
+  welcome: "Welcome to Calculator! Enter your name"
+  valid_name: "Make sure to enter a valid name."
+  greeting: "Hi!"
+  first_number: "What's the first number?"
+  number_error: "Hmm.. that doesn't look like a valid number."
+  second_number: "What's the second number?"
+  operator_error: "Must choose 1, 2, 3, or 4"
+  perform_again: "Do you want to perform another calculation? (Y to Calculate)"
+  goodbye: "Thank you for using the calculator. Good bye!"
+
+dutch:
+  welcome: "Welkom bij rekenmachine! Voer je naam in"
+  valid_name: "Zorg ervoor dat je een geldige naam invoerd."
+  greeting: "Hallo!"
+  first_number: "Wat is het eerste nummer?"
+  number_error: "Hmm.. het lijkt er op dat je geen geldig nummer hebt ingevoerd."
+  second_number: "Wat is het tweede nummer?"
+  operator_error: "Kies uit 1, 2, 3, of 4"
+  perform_again: "Wil je een nieuwe berekening uitvoeren? (Y om the berekenen)"
+  goodbye: "Bedankt voor het gebruik maken van rekenmachine. Tot ziens!"
