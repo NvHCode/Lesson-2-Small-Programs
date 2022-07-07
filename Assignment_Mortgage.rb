@@ -1,19 +1,19 @@
-# # Assignment information
+# assignment_information
 
-# NECESSARY INPUT
-  # - The loan amount (p)
-  # - The Annual Percentage Rate (APR) num / 100
-  # - The loan duration in years (y)
+# REQUIRED INPUT
+# - The loan amount (p)
+# - The Annual Percentage Rate / interest rate (APR) num / 100
+# - The loan duration in years (y)
 
-# NECESSARY OUPUT
-  # From the info given calculate
-  # - Monthly interest rate (j)
-  # - loan duration in months (n)
-  # - Monthly payment (m)
+# REQUIRED OUPUT
+# From the info given calculate
+# - Monthly interest rate (j)
+# - loan duration in months (n)
+# - Monthly payment (m)
 
 # PROCESS
-  # request necessary input from client.
-  # provide necessary output
+# request necessary input from client.
+# provide necessary output
 
 # START
 # - greet customer
@@ -28,74 +28,80 @@
 # - confirm loan duration
 
 # provide necessary output
-  #  - calculate Monthly interest rate (APR * 12)
-  # - provide Monthly interest rate (J) 
-  # = annual_percentage_rate / 100 / 12 * 100
-  # - calculate loan duration in months ((y) * 12)
-  # - provide loan duration in months (n)
-  # - calculate monthly payment (m = p * (j / (1 - (1 + j)**(-n))))
-  # - provide Monthly payment (m)
+#  - calculate Monthly interest rate (APR * 12)
+# - provide Monthly interest rate (J)
+# = annual_percentage_rate / 100 / 12 * 100
+# - calculate loan duration in months ((y) * 12)
+# - provide loan duration in months (n)
+# - calculate monthly payment (m = p * (j / (1 - (1 + j)**(-n))))
+# - provide Monthly payment (m)
 
-  # Stages of coding
-  # 1.rough code
-  # 2.touch up
-   # NEXT TASK WRITE THE PROGRAM
+# Stages of coding
+# 1.rough code
+# 2.refactoring
+# NEXT TASK refactoring
+require 'yaml'
+MESSAGES = YAML.load_file('Assignment_Mortgage.yml')
 
-
-loop do
-     loan_amount = nil
-     annual_percentage_rate = nil
-     loan_duration = nil
-
-    puts ">> Welcome, please enter your name"
-    name = gets.chomp
-    puts ">> Hello #{name}"
-
-    puts " To calculate your loan, we need the following information:
-            1. loan amount
-            2. The Annual Percentage Rate (APR)
-            3. The loan duration in years"
-  loop do
-    puts ">> Please provide the amount you want to loan? "
-    loan_amount = gets.chomp.to_i
-    break if loan_amount > 0
-    puts "The loan amount can't be a negative number. Please try again."
-  end
-
-  loop do
-    puts ">> Please provide the Annual Percentage Rate. "
-    annual_percentage_rate = gets.chomp.to_i
-    break if annual_percentage_rate > 0 
-    puts "The APR can't be a negative number. Please try again."
-  end
-
-  loop do
-    puts ">> Please provide the loan duration in years. "
-    loan_duration = gets.chomp.to_i
-    break if loan_duration > 0 
-    puts "The loan duration can't be a negative number. Please try again."
-  end
-
-  puts "Overview:
-        1. Your loan amount is $#{loan_amount} 
-        2. Your APR is #{annual_percentage_rate}%
-        3. Your loan duration is #{loan_duration} years"
-
-  puts ">> Result:"
-  monthly_interest_rate = (annual_percentage_rate.to_f / 100) / 12
-  monthly_interest_rate_percentage = (monthly_interest_rate * 100.to_f).round(2)
-  puts "Your monthly interest rate is #{monthly_interest_rate_percentage}%"
-
-  loan_duration_in_months = loan_duration.to_i * 12
-  puts "Your loan duration in months is #{loan_duration_in_months}"
-
-  monthly_payment = loan_amount * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(- loan_duration_in_months)))
-  monthly_payment = monthly_payment.round(2)
-  puts "Your monthly payment is $#{monthly_payment}"
-
-  puts ">> Do you want to make another calculation? (Y/N)"
-  answer = gets.chomp
-  break if answer == 'N'
+def prompt(message)
+  Kernel.puts("=> #{message}")
 end
 
-puts "Thank you, goodbye."
+loop do
+  prompt(MESSAGES['welcome'])
+  prompt('info_overview')
+
+  loan_amount = nil
+  loop do
+    prompt(MESSAGES['loan'])
+    loan_amount = gets.chomp.to_f
+
+    break if loan_amount > 0
+    prompt(MESSAGES['error'])
+  end
+
+  annual_interest_rate = nil
+  loop do
+    prompt(MESSAGES['interest_rate'])
+    prompt("Example: 5 for 5% or 2.5 for 2.5%")
+    annual_interest_rate = gets.chomp.to_f
+
+    break if annual_interest_rate > 0
+    prompt(MESSAGES['error'])
+  end
+
+  loan_duration_in_years = nil
+  loop do
+    prompt(MESSAGES['loan_duration'])
+    loan_duration_in_years = gets.chomp.to_f
+
+    break if loan_duration_in_years > 0
+    prompt(MESSAGES['error'])
+  end
+
+  # prompt(MESSAGES['input_overview'])
+
+  prompt("Result:")
+  annual_interest_rate = (annual_interest_rate.to_f / 100)
+  monthly_interest_rate = annual_interest_rate / 12
+  monthly_interest_rate_percentage = (monthly_interest_rate * 100.to_f).round(2)
+
+  prompt("Your monthly interest rate is #{monthly_interest_rate_percentage}%")
+
+  loan_duration_in_months = loan_duration_in_years.to_i * 12
+  prompt("Your loan duration is #{loan_duration_in_months} months")
+
+  monthly_payment = loan_amount *
+                    (monthly_interest_rate /
+      (1 - (1 + monthly_interest_rate)**(- loan_duration_in_months)))
+
+  # rounding up monthly payment to two decimals
+  monthly_payment = monthly_payment.round(2)
+  prompt("Your monthly payment is $ #{monthly_payment}")
+
+  prompt(MESSAGES['another'])
+  answer = gets.chomp.downcase
+  break if answer == 'n'
+end
+
+prompt("Thank you, goodbye.")
