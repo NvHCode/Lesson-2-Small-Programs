@@ -1,0 +1,15 @@
+welcome: "Welcome to Mortgage calculator!"
+info_overview: "To calculate your loan, we need the following information:
+              1. Loan amount
+              2. The Annual Percentage Rate (APR)
+              3. The loan duration in years"
+loan: "Please provide the amount you want to loan? "
+interest_rate: "Please provide the interest rate."
+error: "Error. Please enter a postive number."
+loan_duration: "Please provide the loan duration in years. "
+# input_overview: "Overview:
+#         1. Your loan amount is $#{loan_amount}
+#         2. Your APR is #{annual_percentage_rate}%
+#         3. Your loan duration is #{loan_duration_in_years} years"
+
+another: "Do you want to make another calculation? (Y/N)"
